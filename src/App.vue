@@ -1,9 +1,11 @@
 <template>
-  <section>
+  <main>
     <navbar></navbar>
-    <home-page></home-page>
-    <!-- <Footer></Footer> -->
-  </section>
+    <section>
+      <home-page></home-page>
+      <!-- <Footer></Footer> -->
+    </section>
+  </main>
 </template>
 
 <script>

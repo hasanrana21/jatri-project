@@ -11,7 +11,7 @@ export default {
   name: "ui-button",
   props: {
     label: {
-      type: String,
+      type: [String, Number],
       required: true,
       default: "",
     },
@@ -28,7 +28,8 @@ export default {
         primary:
           "bg-green-500 px-6 py-2 text-white text-lg font-medium rounded",
         secondary:
-          "bg-orange-500 px-6 py-2 text-white text-lg font-medium rounded",
+          "bg-orange-500 px-4 py-1 border-2 border-orange-500 text-white text-lg font-medium rounded",
+        outline: "border-2 px-4 py-1 border-orange-500 rounded text-lg",
       },
     });
 
