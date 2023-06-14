@@ -1,4 +1,4 @@
-<template lang="">
+<template>
   <section class="flex justify-between items-center py-4">
     <h3 class="italic text-5xl text-orange-500 font-semibold">Jatri</h3>
     <ul class="flex items-center space-x-4">
@@ -14,4 +14,4 @@ export default {
   name: "navbar",
 };
 </script>
-<style lang=""></style>
+<style scoped></style>
