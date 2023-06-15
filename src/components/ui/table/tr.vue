@@ -1,19 +1,18 @@
 <template>
-  <tr class="border-b border-gray-300 hover:bg-gray-100 transition-all">
+  <tr class="border-b border-gray-300 hover:bg-gray-100 transition-all w-full">
     <slot />
-    <!-- <product-details-view :id="productId" /> -->
   </tr>
+  <product-details-view v-if="productId" :id="productId" />
 </template>
 <script>
-// import ProductDetailsView from "../../module/home/DetailsView.vue";
+import ProductDetailsView from "../../module/home/DetailsView.vue";
 export default {
   name: "ui-table-tr",
-  // components: { ProductDetailsView },
+  components: { ProductDetailsView },
   props: {
     productId: {
       type: [String, Number],
       required: false,
-      default: 0,
     },
   },
 };

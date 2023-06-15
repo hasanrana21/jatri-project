@@ -7,36 +7,20 @@
       :data="state.paginatedProducts"
       :blueprint="state.blueprint"
       @changePage="handlePageChange"
-      :productId="state.product_id"
     >
-      <ui-table-tr v-for="(product, key) in state.paginatedProducts" :key="key">
+      <ui-table-tr
+        v-for="(product, key) in state.paginatedProducts"
+        :key="key"
+        :productId="product?.id === state.product_id ? state.product_id : ''"
+      >
         <ui-table-td>{{ product?.id }}</ui-table-td>
         <ui-table-td>{{ product?.title }}</ui-table-td>
         <ui-table-td>{{ product?.rating }}</ui-table-td>
         <ui-table-td>{{ product?.price }}</ui-table-td>
         <ui-table-td>
-          <ui-button label="Show" @click="handleDetails(product?.id)" />
+          <ui-button label="Show" @click="state.product_id = product?.id" />
         </ui-table-td>
       </ui-table-tr>
-      <dialog id="favDialog">
-        <form>
-          <p>
-            <label>
-              Favorite animal:
-              <select>
-                <option value="default">Choose…</option>
-                <option>Brine shrimp</option>
-                <option>Red panda</option>
-                <option>Spider monkey</option>
-              </select>
-            </label>
-          </p>
-          <div>
-            <button value="cancel" formmethod="dialog">Cancel</button>
-            <button id="confirmBtn" value="default">Confirm</button>
-          </div>
-        </form>
-      </dialog>
     </ui-table>
   </div>
 </template>
@@ -59,7 +43,7 @@ export default {
       loading: false,
       current_page: 1,
       per_page: 5,
-      product_id: null,
+      product_id: 0,
     });
 
     const fetchProducts = () => {
@@ -75,9 +59,9 @@ export default {
         .finally(() => (state.loading = false));
     };
 
-    const handleDetails = (id) => {
-      state.product_id = id;
-    };
+    // const handleDetails = (id) => {
+    //   state.product_id = id;
+    // };
 
     const handlePageChange = (current_page) => {
       let startIndex = current_page * state.per_page - state.per_page;
@@ -90,7 +74,7 @@ export default {
     });
     return {
       state,
-      handleDetails,
+      // handleDetails,
       handlePageChange,
     };
   },
