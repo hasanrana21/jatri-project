@@ -1,6 +1,18 @@
 <template>
-  <div>
-    <table class="w-full my-10">
+  <div class="mt-10">
+    <div class="flex justify-end items-center space-x-8">
+      <ui-sorting
+        id="price_sorting"
+        label="Price"
+        @sortType="(data) => handleSorting(data, 'price_sort')"
+      />
+      <ui-sorting
+        id="rating_sorting"
+        label="Rating"
+        @sortType="(data) => handleSorting(data, 'rating_sort')"
+      />
+    </div>
+    <table v-if="data.length" class="w-full my-7">
       <thead>
         <tr class="border-b border-gray-300">
           <td
@@ -16,6 +28,9 @@
         <slot />
       </tbody>
     </table>
+    <div v-else class="h-96 flex justify-center items-center text-2xl">
+      No Data Found!
+    </div>
     <ui-pagination
       :pageCount="blueprint.limit"
       @change="changePage"
@@ -25,13 +40,19 @@
 <script>
 import { reactive } from "vue";
 import UiPagination from "../pagination/index.vue";
+import UiSorting from "../sorting/index.vue";
 export default {
   name: "ui-table",
-  components: { UiPagination },
+  components: { UiPagination, UiSorting },
   props: {
     headers: {
       type: [Array, Object],
       required: true,
+      default: () => [],
+    },
+    data: {
+      type: Array,
+      required: false,
       default: () => [],
     },
     blueprint: {
@@ -43,14 +64,35 @@ export default {
     },
   },
   setup(props, { emit }) {
-    const state = reactive({});
+    const state = reactive({
+      pricing: "",
+      rating: "",
+    });
 
     const changePage = (key) => {
       emit("changePage", key);
     };
+
+    const handleSorting = (data, key) => {
+      // let sortedData = [];
+      if (key === "price_sort") {
+        if (data === "descending") {
+          props.data.sort((a, b) => b.price - a.price);
+        } else if (data === "ascending") {
+          props.data.sort((a, b) => a.price - b.price);
+        }
+      } else if (key === "rating_sort") {
+        if (data === "descending") {
+          props.data.sort((a, b) => b.rating - a.rating);
+        } else if (data === "ascending") {
+          props.data.sort((a, b) => a.rating - b.rating);
+        }
+      }
+    };
     return {
       state,
       changePage,
+      handleSorting,
     };
   },
 };

@@ -4,8 +4,10 @@
     <ui-table
       v-else
       :headers="state.headers"
+      :data="state.paginatedProducts"
       :blueprint="state.blueprint"
       @changePage="handlePageChange"
+      :productId="state.product_id"
     >
       <ui-table-tr v-for="(product, key) in state.paginatedProducts" :key="key">
         <ui-table-td>{{ product?.id }}</ui-table-td>
@@ -16,6 +18,25 @@
           <ui-button label="Show" @click="handleDetails(product?.id)" />
         </ui-table-td>
       </ui-table-tr>
+      <dialog id="favDialog">
+        <form>
+          <p>
+            <label>
+              Favorite animal:
+              <select>
+                <option value="default">Choose…</option>
+                <option>Brine shrimp</option>
+                <option>Red panda</option>
+                <option>Spider monkey</option>
+              </select>
+            </label>
+          </p>
+          <div>
+            <button value="cancel" formmethod="dialog">Cancel</button>
+            <button id="confirmBtn" value="default">Confirm</button>
+          </div>
+        </form>
+      </dialog>
     </ui-table>
   </div>
 </template>
@@ -38,6 +59,7 @@ export default {
       loading: false,
       current_page: 1,
       per_page: 5,
+      product_id: null,
     });
 
     const fetchProducts = () => {
@@ -54,7 +76,7 @@ export default {
     };
 
     const handleDetails = (id) => {
-      console.log("id", id);
+      state.product_id = id;
     };
 
     const handlePageChange = (current_page) => {
