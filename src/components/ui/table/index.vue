@@ -12,7 +12,7 @@
         @sortType="(data) => handleSorting(data, 'rating_sort')"
       />
     </div>
-    <table v-if="data.length" class="w-full my-7">
+    <table v-if="data.length" class="w-full my-8">
       <thead>
         <tr class="border-b border-gray-300">
           <td

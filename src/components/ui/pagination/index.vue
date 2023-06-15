@@ -1,5 +1,6 @@
 <template>
-  <div class="flex space-x-4">
+  <div class="flex space-x-4 my-4">
+    <ui-button label="Prev." variant="outline" @click="previousPaginate" />
     <ui-button
       v-for="(page, key) in state.pages"
       :key="key"
@@ -7,6 +8,7 @@
       :variant="state.selected === page ? 'secondary' : 'outline'"
       @click="handlePageChange(page)"
     ></ui-button>
+    <ui-button label="Next" variant="outline" @click="nextPaginate" />
   </div>
 </template>
 <script>
@@ -34,14 +36,27 @@ export default {
       emit("change", key);
     };
 
+    const previousPaginate = () => {
+      if (state.selected > 1) {
+        state.selected -= 1;
+        emit("change", state.selected);
+      }
+    };
+    const nextPaginate = () => {
+      if (state.pages > state.selected) {
+        state.selected += 1;
+        emit("change", state.selected);
+      }
+    };
+
     onBeforeMount(async () => {
-      console.log(props.pageCount);
-      console.log(typeof state.per_page);
       state.pages = (await props.pageCount) / state.per_page;
     });
     return {
       state,
       handlePageChange,
+      previousPaginate,
+      nextPaginate,
     };
   },
 };
