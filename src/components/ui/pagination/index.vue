@@ -1,6 +1,6 @@
 <template>
   <div class="flex space-x-4 my-4">
-    <ui-button label="Prev." variant="outline" @click="previousPaginate" />
+    <ui-button label="< Prev." variant="outline" @click="previousPaginate" />
     <ui-button
       v-for="(page, key) in state.pages"
       :key="key"
@@ -8,7 +8,7 @@
       :variant="state.selected === page ? 'secondary' : 'outline'"
       @click="handlePageChange(page)"
     ></ui-button>
-    <ui-button label="Next" variant="outline" @click="nextPaginate" />
+    <ui-button label="Next >" variant="outline" @click="nextPaginate" />
   </div>
 </template>
 <script>

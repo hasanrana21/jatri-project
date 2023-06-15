@@ -18,7 +18,18 @@
         <ui-table-td>{{ product?.rating }}</ui-table-td>
         <ui-table-td>{{ product?.price }}</ui-table-td>
         <ui-table-td>
-          <ui-button label="Show" @click="state.product_id = product?.id" />
+          <ui-button
+            v-if="state.product_id > 0 && product?.id === state.product_id"
+            label="Close"
+            class="!px-6 !py-2"
+            variant="secondary"
+            @click="state.product_id = 0"
+          />
+          <ui-button
+            v-else
+            label="Show"
+            @click="state.product_id = product?.id"
+          />
         </ui-table-td>
       </ui-table-tr>
     </ui-table>
@@ -46,9 +57,9 @@ export default {
       product_id: 0,
     });
 
-    const fetchProducts = () => {
+    const fetchProducts = async () => {
       state.loading = true;
-      axios
+      await axios
         .get("https://dummyjson.com/products")
         .then((res) => {
           const { products, ...blueprint } = res?.data;
@@ -58,10 +69,6 @@ export default {
         })
         .finally(() => (state.loading = false));
     };
-
-    // const handleDetails = (id) => {
-    //   state.product_id = id;
-    // };
 
     const handlePageChange = (current_page) => {
       let startIndex = current_page * state.per_page - state.per_page;
@@ -74,7 +81,6 @@ export default {
     });
     return {
       state,
-      // handleDetails,
       handlePageChange,
     };
   },

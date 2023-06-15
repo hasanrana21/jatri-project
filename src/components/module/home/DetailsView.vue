@@ -38,7 +38,11 @@
           <td>Image</td>
           <td>:</td>
           <td>
-            <img :src="state.product?.thumbnail" alt="" />
+            <img
+              :src="state.product?.thumbnail"
+              alt=""
+              class="w-[450px] h-[300px] object-contain"
+            />
           </td>
         </tr>
       </table>

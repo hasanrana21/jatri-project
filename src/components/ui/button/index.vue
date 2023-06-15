@@ -1,9 +1,7 @@
 <template>
-  <div>
-    <button :class="state.variants[variant]">
-      {{ label }}
-    </button>
-  </div>
+  <button :class="state.variants[variant]">
+    {{ label }}
+  </button>
 </template>
 <script>
 import { reactive } from "vue";
